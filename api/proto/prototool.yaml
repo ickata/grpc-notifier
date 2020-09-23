@@ -1,0 +1,29 @@
+protoc:
+  version: latest
+  includes:
+    -  ./
+lint:
+  group: uber2
+  rules:
+    remove:
+    - COMMENTS_NO_C_STYLE
+    - COMMENTS_NO_INLINE
+    - ENUMS_HAVE_SENTENCE_COMMENTS
+    - MESSAGES_HAVE_SENTENCE_COMMENTS_EXCEPT_REQUEST_RESPONSE_TYPES
+    - RPCS_HAVE_SENTENCE_COMMENTS
+    - SERVICES_HAVE_SENTENCE_COMMENTS
+
+generate:
+  go_options:
+    import_path: notifier-proto
+  plugins:
+    - name: grpc-web
+      flags: import_style=commonjs+dts,mode=grpcwebtext
+      output: ../gen/js
+    - name: js
+      flags: import_style=commonjs
+      output: ../gen/js
+    - name: go
+      type: go
+      flags: plugins=grpc
+      output: ../gen/go

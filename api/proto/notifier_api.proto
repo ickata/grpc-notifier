@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package notifier.v1;
+
+service NotifierAPI {
+  rpc ShowNotification(ShowNotificationRequest) returns (ShowNotificationResponse);
+}
+
+message ShowNotificationRequest {
+  string title = 1;
+  string message = 2;
+}
+
+message ShowNotificationResponse {}
