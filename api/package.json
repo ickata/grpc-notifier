@@ -1,0 +1,6 @@
+{
+  "name": "notifier-api",
+  "version": "0.1.0",
+  "main": "gen/js",
+  "license": "MIT"
+}
