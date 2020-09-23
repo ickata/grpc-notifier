@@ -22,7 +22,7 @@ import (
 
 const (
 	GRPC_CONTENT_TYPE = "application/grpc"
-	GRPCWEB_CONTENT_TYPE = "application/grpc-web+proto"
+	GRPCWEB_CONTENT_TYPE = "application/grpc-web-text"
 )
 
 type server struct {
