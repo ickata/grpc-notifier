@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
@@ -18,6 +19,7 @@ import (
 
 	"github.com/rakyll/statik/fs"
 	_ "notifier/service/statik"
+	"notifier/service/db"
 )
 
 const (
@@ -36,6 +38,13 @@ func (s *server) ShowNotification(ctx context.Context, in *pb.ShowNotificationRe
 	return &pb.ShowNotificationResponse{}, nil
 }
 
+func (s *server) ScheduleNotification(ctx context.Context, in *pb.ScheduleNotificationRequest) (*pb.ScheduleNotificationResponse, error) {
+	DB.ScheduleNotification(in.Title, in.Message, in.Datetime)
+	return &pb.ScheduleNotificationResponse{}, nil
+}
+
+var DB *db.Instance
+
 func main() {
 	cfg, err := configFromEnv()
 	if err != nil {
@@ -43,7 +52,27 @@ func main() {
 		os.Exit(1)
 	}
 
+	DB = db.Init()
+	go periodicShowNotifications(DB)
+
 	initServer(cfg)
+}
+
+func periodicShowNotifications(DB *db.Instance) {
+	ticker := time.NewTicker(time.Second * 5)
+	defer ticker.Stop()
+	for {
+		select {
+		case <-ticker.C:
+			notifications := DB.GetCurrentNotifications()
+			for _, notification := range notifications {
+				err := beeep.Alert(notification.Title, notification.Message, "")
+				if err != nil {
+					panic(err)	
+				}
+			}
+		}
+	}
 }
 
 func initStaticServer(cfg *config) (http.Handler) {

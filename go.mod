@@ -10,6 +10,7 @@ require (
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/improbable-eng/grpc-web v0.13.0
 	github.com/kelseyhightower/envconfig v1.4.0
+	github.com/mattn/go-sqlite3 v1.14.3
 	github.com/rakyll/statik v0.1.7
 	github.com/rs/cors v1.7.0 // indirect
 	golang.org/x/net v0.0.0-20200904194848-62affa334b73
