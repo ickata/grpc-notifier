@@ -10,9 +10,12 @@ option java_package = "com.notifier.v1";
 option objc_class_prefix = "NXX";
 option php_namespace = "Notifier\\V1";
 
+import "notification.proto";
+
 service NotifierAPI {
   rpc ShowNotification(ShowNotificationRequest) returns (ShowNotificationResponse);
   rpc ScheduleNotification(ScheduleNotificationRequest) returns (ScheduleNotificationResponse);
+  rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse);
 }
 
 message ShowNotificationRequest {
@@ -29,3 +32,9 @@ message ScheduleNotificationRequest {
 }
 
 message ScheduleNotificationResponse {}
+
+message GetNotificationsRequest {}
+
+message GetNotificationsResponse {
+  repeated Notification notifications = 1;
+}

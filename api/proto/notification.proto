@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package notifier.v1;
+
+option csharp_namespace = "Notifier.V1";
+option go_package = "notifierv1";
+option java_multiple_files = true;
+option java_outer_classname = "NotificationProto";
+option java_package = "com.notifier.v1";
+option objc_class_prefix = "NXX";
+option php_namespace = "Notifier\\V1";
+
+message Notification {
+  string title = 1;
+  string message = 2;
+  uint32 datetime = 3;
+}

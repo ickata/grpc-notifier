@@ -43,6 +43,23 @@ func (s *server) ScheduleNotification(ctx context.Context, in *pb.ScheduleNotifi
 	return &pb.ScheduleNotificationResponse{}, nil
 }
 
+func (s *server) GetNotifications(ctx context.Context, in *pb.GetNotificationsRequest) (*pb.GetNotificationsResponse, error) {
+	notifications := DB.GetNotifications()
+	notificationsList := []*pb.Notification{};
+
+	for _, notification := range notifications {
+		notificationsList = append(notificationsList, &pb.Notification{
+			Title: notification.Title,
+			Message: notification.Message,
+			Datetime: notification.Date,
+		})
+	}
+
+	return &pb.GetNotificationsResponse{
+		Notifications: notificationsList,
+	}, nil
+}
+
 var DB *db.Instance
 
 func main() {

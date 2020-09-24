@@ -31,7 +31,7 @@ func createTable(db *sql.DB) {
 		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,		
 		"title" TEXT,
 		"message" TEXT,
-		"date" DATETIME		
+		"date" INTEGER		
 	);`
 	
 	statement, err := db.Prepare(SQL)
@@ -57,7 +57,7 @@ func (db *Instance) ScheduleNotification(title string, message string, date uint
 type Notification struct {
 	Title string
 	Message string
-	Date string
+	Date uint32
 }
 
 func (db *Instance) GetNotifications() []Notification {
@@ -73,7 +73,7 @@ func (db *Instance) GetNotifications() []Notification {
 		var id int
 		var title string
 		var message string
-		var date string
+		var date uint32
 		row.Scan(&id, &title, &message, &date)
 		notification := Notification{
 			Title: title,
@@ -99,7 +99,7 @@ func (db *Instance) GetCurrentNotifications() []Notification {
 		var id int
 		var title string
 		var message string
-		var date string
+		var date uint32
 		row.Scan(&id, &title, &message, &date)
 		notification := Notification{
 			Title: title,
