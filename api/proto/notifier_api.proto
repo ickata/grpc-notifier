@@ -12,6 +12,7 @@ option php_namespace = "Notifier\\V1";
 
 service NotifierAPI {
   rpc ShowNotification(ShowNotificationRequest) returns (ShowNotificationResponse);
+  rpc ScheduleNotification(ScheduleNotificationRequest) returns (ScheduleNotificationResponse);
 }
 
 message ShowNotificationRequest {
@@ -20,3 +21,11 @@ message ShowNotificationRequest {
 }
 
 message ShowNotificationResponse {}
+
+message ScheduleNotificationRequest {
+  string title = 1;
+  string message = 2;
+  uint32 datetime = 3;
+}
+
+message ScheduleNotificationResponse {}
