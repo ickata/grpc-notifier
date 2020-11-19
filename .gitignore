@@ -1,1 +1,2 @@
-notifier
+notifier*
+!ui/src/api/notifier
